@@ -1,16 +1,16 @@
 <div class="card-product ">
   <div class="card-img-wrap">
-    <img class="card-img-top" />
+    <img class="card-img-top" src="{{ product.images[0]?.url }}" alt="{{ product.name }}" />
   </div>
   <div class="card-body">
-    <h5 class="card-title"></h5>
+    <h5 class="card-title">{{ product.name }}</h5>
     <div class="price-wrap">
       <p class="price-text">
-        <strong></strong>
+        <strong>{{ product.price }}</strong>
       </p>
       <div class="rate">
         <span class="rate-amount ml-2"></span>
-        <mat-icon class="product-add-to-cart"></mat-icon>
+        <mat-icon class="product-add-to-cart" (click)="addProduct()">add_shopping_cart</mat-icon>
       </div>
     </div>
   </div>
