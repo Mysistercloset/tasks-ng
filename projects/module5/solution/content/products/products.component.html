@@ -1,0 +1,7 @@
+<app-infinite-scroll (scrolled)="scroll($event)" *ngIf="products$ | async as products">
+  <div class="content-block products">
+    <div class="product" *ngFor="let product of products$ | async">
+      <app-shop-card [product]="product" (addToCart)="addProduct(product)"> </app-shop-card>
+    </div>
+  </div>
+</app-infinite-scroll>

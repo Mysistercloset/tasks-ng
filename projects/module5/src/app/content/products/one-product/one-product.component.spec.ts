@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { OneProductComponent } from './one-product.component';
 import { SharedModule } from '../../../shared/shared.module';
 import { ProductGuard } from './product.guard';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -13,6 +12,7 @@ import { StarRatingComponent } from '../../../shared/components/star-rating/star
 import { InterceptorService } from '../../../shared/services/interceptor.service';
 import { ImgUrlPipe } from '../../../shared/pipes/img-url.pipe';
 import { of } from 'rxjs';
+import { OneProductComponent } from './one-product.component';
 
 describe('[Moдуль 5] Один продукт', () => {
   let fixture: ComponentFixture<OneProductComponent>;
@@ -40,45 +40,52 @@ describe('[Moдуль 5] Один продукт', () => {
     });
     fixture = TestBed.createComponent(OneProductComponent);
     component = fixture.componentInstance;
-    component.product$ = of(product);
-    component.feedback$ = of(feedbacks);
+    (component as any).product$ = of(product);
+    (component as any).feedback$ = of(feedback);
     fixture.detectChanges();
-    spyOn(component, 'addProduct').and.callThrough();
-    addToCartSpy = spyOn(component.addToCart, 'emit').and.callThrough();
+    spyOn(component as any, 'addProduct').and.callThrough();
+    addToCartSpy = spyOn((component as any).addToCart, 'emit').and.callThrough();
   });
   it('компонент должен иметь метод addProduct и Output свойства addToCart', () => {
-    expect(component.addToCart).toBeTruthy();
-    expect(component.addProduct).toBeTruthy();
+    expect((component as any).addToCart).toBeTruthy();
+    expect((component as any).addProduct).toBeTruthy();
   });
 
   it('иконка продукта должна быть add_shopping_cart ', () => {
+    (component as any).product$ = of(product);
+    fixture.detectChanges();
     const icon = fixture.debugElement.query(By.css('.btn-icon'));
-    console.log(icon);
     expect(icon).toBeTruthy();
     const [{ nativeNode }] = icon.childNodes;
     expect(nativeNode.textContent).toEqual('add_shopping_cart');
   });
 
   it('тег img должен иметь правильное связывание свойств src и alt', () => {
+    (component as any).product$ = of(product);
+    fixture.detectChanges();
     const imgEl = fixture.debugElement.query(By.css('.main-cont-info-img'));
     expect(imgEl).toBeTruthy();
     const {
       images: [{ url }],
       name,
     } = product;
-    expect(imgEl.attributes.src).toEqual(url);
-    expect(imgEl.attributes.alt).toEqual(name);
+    expect(imgEl.attributes.src?.trim()).toEqual(url);
+    expect(imgEl.attributes.alt?.trim()).toEqual(name);
   });
 
-  it('тег с селектором .card-title должен правильно интерполировать title', () => {
+  it('тег с селектором .product-title должен правильно интерполировать title', () => {
+    (component as any).product$ = of(product);
+    fixture.detectChanges();
     const titleEL = fixture.debugElement.query(By.css('.product-title'));
     expect(titleEL).toBeTruthy();
     const { name } = product;
     const [{ nativeNode: titleNode }] = titleEL.childNodes;
-    expect(titleNode.textContent).toEqual(name);
+    expect(titleNode.textContent.trim()).toEqual(name);
   });
 
   it('тег с селектором .price-text должен правильно интерполировать price', () => {
+    (component as any).product$ = of(product);
+    fixture.detectChanges();
     const { price } = product;
     const priceEl = fixture.debugElement.query(By.css('.main-cont-info-price'));
     expect(price).toBeTruthy();
@@ -86,23 +93,41 @@ describe('[Moдуль 5] Один продукт', () => {
     expect(priceNode.textContent.trim()).toEqual(`₽${price.toString()}.00`);
   });
 
+  it('тег с селектором .product-description должен правильно интерполировать description', () => {
+    (component as any).product$ = of(product);
+    fixture.detectChanges();
+    const descriptionEL = fixture.debugElement.query(By.css('.main-cont-description-descr p'));
+    expect(descriptionEL).toBeTruthy();
+    const { description } = product;
+    const [{ nativeNode: titleNode }] = descriptionEL.childNodes;
+    expect(titleNode.textContent.trim()).toEqual(description);
+  });
+
   it('клик на иконку "Добавить в корзину" должен вызывать метод addProduct()', () => {
+    (component as any).product$ = of(product);
+    fixture.detectChanges();
     const icon = fixture.debugElement.query(By.css('.btn-icon'));
     icon.triggerEventHandler('click', null);
-    expect(component.addProduct).toHaveBeenCalledBefore(addToCartSpy);
-    expect(component.addToCart.emit).toHaveBeenCalled();
+    expect((component as any).addProduct).toHaveBeenCalledBefore(addToCartSpy);
+    expect((component as any).addToCart.emit).toHaveBeenCalled();
   });
 
   it('должен включать в себя компонент app-star-rating ', () => {
+    (component as any).product$ = of(product);
+    fixture.detectChanges();
     const starRatingComponent = fixture.debugElement.query(By.directive(StarRatingComponent));
     expect(starRatingComponent).toBeTruthy();
   });
 
   it('проверка на правильное значение поля feedback-rate', () => {
+    (component as any).product$ = of(product);
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
     const feedbackRateEL = fixture.debugElement.query(By.css('.feedback-rate'));
-    expect(feedbackRateEL).toBeTruthy();
-    const { rateControl } = feedback;
-    const [{ nativeNode: titleNode }] = feedbackRateEL.childNodes;
-    expect(titleNode.textContent.trim()).toEqual(rateControl);
+      expect(feedbackRateEL).toBeTruthy();
+      const { rating } = product;
+      const [{ nativeNode: titleNode }] = feedbackRateEL.childNodes;
+      expect(titleNode.textContent.trim()).toEqual(rating);
+    })
   });
 });

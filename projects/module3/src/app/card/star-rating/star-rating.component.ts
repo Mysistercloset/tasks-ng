@@ -12,3 +12,4 @@ export enum StarsIcon {
   styleUrls: ['./star-rating.component.sass'],
 })
 export class StarRatingComponent {}
+

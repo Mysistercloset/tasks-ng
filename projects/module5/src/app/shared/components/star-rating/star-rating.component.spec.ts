@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
-describe('[Moуль 5] Рейтинг продукта', () => {
+describe('[Moдуль 5] Рейтинг продукта', () => {
   let fixture: ComponentFixture<StarRatingComponent>;
   let component: StarRatingComponent;
   beforeEach(async(() => {
@@ -16,7 +16,7 @@ describe('[Moуль 5] Рейтинг продукта', () => {
     component = fixture.componentInstance;
   }));
   it('проверка на значение null', () => {
-    component.rate = null;
+    (component as any).rate = null;
     fixture.detectChanges();
     const stars: DebugElement[] = fixture.debugElement.queryAll(By.css('mat-icon'));
     expect(stars.length).toEqual(5);
@@ -27,7 +27,7 @@ describe('[Moуль 5] Рейтинг продукта', () => {
     expect(stars[4].classes['gold-star']).toBeFalsy();
   });
   it('проверка на значение 0 - 0.25', () => {
-    component.rate = 1.12412;
+    (component as any).rate = 1.12412;
     fixture.detectChanges();
     const stars: DebugElement[] = fixture.debugElement.queryAll(By.css('mat-icon'));
     expect(stars[0].classes['gold-star']).toBeTruthy();
@@ -37,7 +37,7 @@ describe('[Moуль 5] Рейтинг продукта', () => {
     expect(stars[4].classes['gold-star']).toBeFalsy();
   });
   it('проверка на значение 0.25 < 0.75', () => {
-    component.rate = 2.423235;
+    (component as any).rate = 2.423235;
     fixture.detectChanges();
     const stars: DebugElement[] = fixture.debugElement.queryAll(By.css('mat-icon'));
     expect(stars[0].classes['gold-star']).toBeTruthy();
@@ -47,7 +47,7 @@ describe('[Moуль 5] Рейтинг продукта', () => {
     expect(stars[4].classes['gold-star']).toBeFalsy();
   });
   it('проверка на значение > 0.75', () => {
-    component.rate = 3.76453;
+    (component as any).rate = 3.76453;
     fixture.detectChanges();
     const stars: DebugElement[] = fixture.debugElement.queryAll(By.css('mat-icon'));
     expect(stars[0].classes['gold-star']).toBeTruthy();

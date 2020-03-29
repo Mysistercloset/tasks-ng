@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { IProduct } from '../../../shared/services/products.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-shop-card',
@@ -7,13 +6,4 @@ import { IProduct } from '../../../shared/services/products.service';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent {
-  @Input()
-  public product!: IProduct;
-
-  @Output()
-  public addToCart = new EventEmitter();
-
-  public addProduct(): void {
-    this.addToCart.emit();
-  }
 }

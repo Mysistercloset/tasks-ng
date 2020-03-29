@@ -1,0 +1,24 @@
+<div class="card-product ">
+  <div class="card-img-wrap">
+    <img class="card-img-top" [src]="product.images | imgUrl" [alt]="product.name" />
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">
+      <a [routerLink]="[product._id]">
+        {{ product.name }}
+      </a>
+    </h5>
+
+    <div class="rate">
+      <div class="rate-amount ml-2">
+        <app-star-rating [rate]="product.rating"></app-star-rating>
+      </div>
+      <mat-icon class="product-add-to-cart" (click)="addProduct()">add_shopping_cart </mat-icon>
+    </div>
+    <div class="price-wrap">
+      <p class="price-text">
+        <strong>{{ product.price | currency: 'RUB':'symbol-narrow' }}</strong>
+      </p>
+    </div>
+  </div>
+</div>

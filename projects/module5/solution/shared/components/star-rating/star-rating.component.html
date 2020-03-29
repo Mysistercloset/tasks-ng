@@ -1,0 +1,5 @@
+<div class="stars">
+  <div *ngFor="let star of stars; let i = index" class="stars-icon">
+    <mat-icon [ngClass]="{ 'gold-star': star.active }">{{star.icon}}</mat-icon>
+  </div>
+</div>

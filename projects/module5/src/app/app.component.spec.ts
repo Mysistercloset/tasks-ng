@@ -12,6 +12,7 @@ import { ImgUrlPipe } from './shared/pipes/img-url.pipe';
 import { InterceptorService } from './shared/services/interceptor.service';
 import { AppRoutingModule } from './app-routing.module';
 import { StarRatingComponent } from './shared/components/star-rating/star-rating.component';
+import { product } from 'projects/module1/src/mocks/products';
 
 describe('[Modуль 5] Общие тесты приложения', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -56,3 +57,18 @@ describe('[Modуль 5] Общие тесты приложения', () => {
     expect(textContent.trim()).toContain('5. Навигация в приложении');
   });
 });
+
+describe('[Moдуль 5] Пайпы', () => {
+  let pipe: ImgUrlPipe;
+  beforeEach(() => {
+    pipe = new ImgUrlPipe();
+  });
+  it('существование метода transform', () => {
+    expect((pipe as any).transform).toBeTruthy();
+  });
+  it('transform должен правильно преобразовывать изображение в ссылку', () => {
+    expect((pipe as any).transform((product as any).images)).toBe((product as any).images[0]?.url);
+  });
+});
+
+

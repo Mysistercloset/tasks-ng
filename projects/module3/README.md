@@ -5,7 +5,7 @@
 - [Создание сервиса](https://angular.io/tutorial/toh-pt4)
 - [Сервисы и dependency injection](https://angular.io/guide/architecture-services)
 - [HttpClient](https://angular.io/guide/http)
-- [Получениен данных с сервера и HTTP interceptors](https://angular.io/tutorial/toh-pt6)
+- [Получение данных с сервера и HTTP interceptors](https://angular.io/tutorial/toh-pt6)
 
 Скринкасты
 
