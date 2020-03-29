@@ -71,8 +71,8 @@
 
   <div class="content-wrap products-wrap">
     <div class="content-block products">
-      <div class="product">
-        <app-shop-card> </app-shop-card>
+      <div class="product" *ngFor="let product of products">
+        <app-shop-card [product]="product" (addToCart)="addProduct(product)"></app-shop-card>
       </div>
     </div>
   </div>
