@@ -1,7 +1,7 @@
-import { product } from '1-components/1-template-syntax-and-binding/src/mocks/products';
 import { ImgUrlPipe } from './img-url.pipe';
+import { product } from '1-components/1-template-syntax-and-binding/src/mocks/products';
 
-describe('[Moдуль 3] Пайпы', () => {
+describe('[Moдуль 2] Компонент ImgUrlPipe', () => {
   let pipe: ImgUrlPipe;
   beforeEach(() => {
     pipe = new ImgUrlPipe();
@@ -9,7 +9,7 @@ describe('[Moдуль 3] Пайпы', () => {
   it('существование метода transform', () => {
     expect((pipe as any).transform).toBeTruthy();
   });
-  it('transform должен правильно преобразовывать изображение в ссылку', () => {
+  it('метод transform должен правильно приводить изображение в ссылку', () => {
     expect((pipe as any).transform((product as any).images)).toBe((product as any).images[0]?.url);
   });
 });

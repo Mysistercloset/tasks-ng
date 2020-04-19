@@ -11,8 +11,8 @@ import { ImgUrlPipe } from './card/img-url.pipe';
 import { BASE_URL_TOKEN } from './config';
 import { environment } from '../environments/environment';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { InterceptorService } from './interceptor.service';
 import { CommonModule } from '@angular/common';
+import { InterceptorService } from './interceptor.service';
 
 @NgModule({
   declarations: [AppComponent, StarRatingComponent, CardComponent, ImgUrlPipe],

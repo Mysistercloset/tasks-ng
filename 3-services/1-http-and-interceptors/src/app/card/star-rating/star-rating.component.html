@@ -1,5 +1,5 @@
 <div class="stars">
-  <div class="stars-icon">
-    <mat-icon></mat-icon>
+  <div *ngFor="let star of stars" class="stars-icon">
+    <mat-icon [ngClass]="{ 'gold-star': star.active }">{{ star.icon }}</mat-icon>
   </div>
 </div>
